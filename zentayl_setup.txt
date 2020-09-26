@@ -1,0 +1,247 @@
+Installing Zentyal as Primary Domain Controller and Integrate Windows/Linux based systems
+
+Introduction 
+
+Zentyal Server Development Edition is aimed at organizations with in-house experience and skills to install, configure and maintain the Zentyal deployment by themselves. 
+Latest release: Zentyal 6.2
+based on Ubuntu Server 18.04.4 LTS 
+
+Full feature list
+
+Directory & Domain :
+
+Central domain and directory management 
+Users, Security groups, Distribution lists, Contacts 
+Multiple Organization Units (OUs), Group Policy Objects (GPOs) 
+NETLOGON scripts, Roaming profiles 
+Single Sign-On (SSO) authentication 
+Supported OS: Windows® XP/Vista/7/8/10 
+File sharing in Windows® environments (CIFS) 
+Users and Groups access and modification permissions (ACLs) 
+Integrated software: Samba 
+
+Mail :
+
+Supported protocols: SMTP, POP3, IMAP, CalDAV, CardDAV, SIEVE 
+Supported clients: Mozilla Thunderbird® 
+Webmail 
+Synchronization to mobile devices via ActiveSync 
+Multiple virtual mail domains 
+Single Sign-On (SSO) authentication 
+Management via Zentyal or Microsoft ® Active Directory 
+Antivirus & Mail filter 
+Integrated software: Postfix, Dovecot, Fetchmail, Sieve, SOGo, SOGo ActiveSync, Amavis, ClamAV, SpamAssasin 
+
+Gateway :
+
+Network configuration 
+Routing 
+Gateway 
+Firewall 
+Network authentication service (RADIUS) 
+FreeRADIUS 
+HTTP Proxy 
+IDS/IPS 
+Integrated software: Iproute2, Netfilter, Squid, Suricata, FreeRADIUS 
+
+Infrastructure :
+
+DHCP and DNS server 
+NTP server 
+Certification Authority (CA) 
+Virtualization Manager 
+Virtual Private Networks (VPNs) 
+Instant Messaging (IM) service 
+Libvirt/KVM, Duplicity 
+FTP Server 
+Integrated software: BIND, ISC DHCP Software, ntpd, OpenSSL, OpenVPN, ejabbered, vsftpd, Libreswan 
+
+Prerequisites:
+
+To download Zentyal 6.2 Development Edition, please follow this link
+ http://download.zentyal.com/zentyal-6.2-development-amd64.iso
+
+We can install Zentyal in two different ways:
+ 1) Using the Zentyal installer (recommended option) – The above approach
+ 2) On top of any existing Ubuntu Server Edition installation. 
+    sudo apt-get update -y 
+    sudo apt-get install -y zentyal-core 
+
+After downloading the image, burn the ISO to the USB or on Virtual box point the ISO image.
+
+Open Virtual box, new → specify the name and Type of OS and Version(64/32 bit)->specify the RAM details → create a virtual hard disk now → VDI(Dynamically allocated) → Specify the location of VDI(D:\VM images\Zentayl-dailyhunt.vdi) with your desired hard disk size and click on Create 
+
+Installation screen appears, after the ISO gets pointed and it gets boots up.
+
+Installation of Zentyal Server
+
+1. Select your desired Language → English 
+
+2. Select Install Zentyal 6.2(expert mode) - 2nd option 
+
+3. Now select your preferred language for installation. - English 
+
+4. Select your location. If your location is not listed by default, just go for other and then choose your continent and country – India in our case 
+
+5. Select your keyboard layout. - English(US)
+
+6. Now the installer will load the components required to configure your system.
+
+7. To configure network manually, Select configure network manually.
+
+Enter your IP address, Netmask, Gateway, NameServer(DNS)
+
+8. In the next stage, set the hostname for your computer and enter your FQDN. Here my FQDN is " zentayl.dailyhunttest.com"
+
+9. Select an user for your system administration and not the user domain controller.Username → dailyhunt
+
+10. Enter password for root user, it must be a stronger one.
+
+11. It prompts you to re-enter your password.
+
+Use weak password, give yes
+
+12. To configure your system time. Select " Yes" if time setting is correct.
+
+13. For Partitioning Disk, select manual and click Enter.
+
+14. To select your HDD, here choose VMware virtual disk.
+
+15. To create new partition table, Click yes and press Enter.
+
+16. To Configure the Hard Disk Partitions.
+boot partition
+
+300 MB
+
+swap area
+
+2 GB
+
+/ Partition ext4
+
+8.4 GB
+
+In real scenario, assign more space for all of the partitions, Please follow the below steps
+
+Steps to partition :
+
+Select the free space and click enter, now select create a new partition
+
+Now give the size for the boot partition
+
+Select the partition type, it should be selected as primary
+
+Select the location for the partition as beginning
+
+Select the filesystem type as EXT4 and mount point as /boot. After configuring select Done it setups up the partition
+
+Now select the free space and give enter and then select create a new partition
+
+Give the size for the swap partition
+
+Since the swap partition should be double the size of RAM, Lets go with 2GB for the swap partition. Select the partition type as primary
+
+Select from which position of the free space the partition should be created
+
+Select the filesystem type as Swap area
+
+After configuring select Done it setups up the partition
+
+Select the free space and click enter now and then select the create a new partition
+
+Now give the size for the root partition
+
+Select the partition type as Primary
+
+Select from which position of the free space the partition should be created
+
+Select the filesystem type as EXT4 and mount point as / After configuring give done setting up the partition
+
+Now select Finish partitioning and write changes to disks
+
+17. To setup a Graphical Environment for Zentyal. If your server has both monitor and keyboard attached, then you have to select No, if not then select yes.
+
+18. Now the Installation process starts.
+
+19.If u use proxy server enter the proxy information or else leave the space blank and Click enter.
+
+20. Select yes to install Grub bootloader into MBR.
+
+21. Select Yes for next warning about UTC time.
+
+22. Click enter to continue and the computer starts rebooting.
+
+After rebooting, the system will install zentyal core packages.
+
+To Install Basic Software' s for PDC
+Open a web browser and enter the IP address or the hostname in search bar. For example: " https://192.168.7.124" . It gives warnings to you about a security issue certificate.
+select " I Understand the Risks" , " Add exception" and " Confirm Security Exception" .
+23. Just Enter your admin user name and password.
+
+24. In Zentyal Web Administration, to Select and install software for our Primary Domain Controller.
+
+25. Select the below mentioned packages for the server to become a PDC.
+Firewall 
+Network Configuration 
+Printer Sharing Service 
+DNS Service 
+File Sharing and Domain Services 
+Users and Computers 
+To Confirm your packages installation
+
+
+26. Configuring your Network Interface as Internal.
+
+27. To select Static Method and give your static IP server address, DNS servers, Gateway and Netmask.
+
+
+28. Selecting the Standalone server and type your domain name and then click Finish.
+
+
+
+
+29. After PDC installation completes, navigate to DNS Module and check that your domain is in the Domain tab list.
+
+30. Navigate to Users and Computers Module, choose Manage and include a user with Administrator Privileges for Active Directory.
+To choose users , hit on " +" button below and type your credentials.
+
+
+31. To select the user, in right side under User Groups field choose Domain Admins and click the " plus" button like below.
+
+
+32. Navigate to Domain Module, choose Settings and select a description for your server and then choose " Enable roaming profiles" and also click Change.
+
+33. In the top right, select on Save Changes to apply your new settings and hit Save.
+
+To Integrate Windows System in PDC
+34. Navigate to Start and select Control Panel and then click " Network and Internet" , after this choose " Network and Sharing Center" , then " View Network Status and Tasks" , after this choose Local Area Connection.
+
+
+
+
+35. In Local Area Connection, choose Properties and then IPv4 and also enter your static IP address, Gateway, Netmask and DNS.
+
+
+
+36. To check all is OK, just ping your pdc server address and domain name using the command prompt.
+
+
+37. To add Windows 7 into the pdc.linuxhelp.com domain. Select Computer and click System Properties and then Advanced System Settings after that select, Computer Name.
+
+
+
+38. Type your computer name in the Name field domain in the Member of Domain.
+
+39. In the next window, type your username and password for the domain Administrator User.
+
+
+40. Reboot the system to apply setting and then log on to your new domain.
+
+41. In login screen, type your domain and administrator username.
+
+42. Click start and right click computer and select properties. Now you can see the windows system is added to the pdc.linuxhelp.com
+
+43. Open Zentyal server and Go to https://192.168.1.13 in the browser and verify if the Computer was added to Computers and Users.
+
+Let us see more about zentyal server in the coming sessions
