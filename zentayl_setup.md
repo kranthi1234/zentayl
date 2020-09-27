@@ -278,8 +278,11 @@ search dailyhunt.com
 ping pdc_fqdn(dailyhunt.com)
 
 4. On the next step, configure your machine hostname as a Fully Qualified Domain Name and verify it by issuing the following commands with root privileges. 
+
 hostnamectl set-hostname hostname.dailyhunt.com
+
 cat /etc/hostname
+
 hostname
  
 The left system hostname configured on this step, will be the name that will appear on Zentyal PDC on joined Computers names.
@@ -362,8 +365,11 @@ In order to perform GUI logins exit to main CentOS 7 Login Screen, click on Not 
 Enable PDC Integration System-Wide
 
 To automatically reach and authenticate to Zentyal PDC after every system reboot you need to enable Samba and Winbind daemons system-wide by issuing the following commands with root privileges.
+
 systemctl enable smb
+
 systemctl enable nmb
+
 systemctl enable winbind
 
 
